@@ -1,5 +1,5 @@
 # ML-Framework
-The source code and documentations of the framework created during my master degree
+The source code and documentations of the framework created during my master degree in its latest version
 
 
 Framework Hot Spots
