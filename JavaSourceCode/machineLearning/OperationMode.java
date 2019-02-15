@@ -1,7 +1,10 @@
-package machineLearning;
+package machinelearning;
 
-public abstract class OperationMode {
+import java.io.Serializable;
 
+public abstract class OperationMode implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	Classifier classifier;
 	
 	public OperationMode(Classifier classifier) {

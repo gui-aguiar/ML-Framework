@@ -1,7 +1,8 @@
-package machineLearning;
+package machinelearning;
 
 public class Classify extends OperationMode {
 
+	private static final long serialVersionUID = 1L;
 	public void initialize() {
 		classifier.load();		
 	}

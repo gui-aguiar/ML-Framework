@@ -1,6 +1,10 @@
-package machineLearning;
+package machinelearning;
 
-public abstract class Algorithm {
+import java.io.Serializable;
+
+public abstract class Algorithm implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	PerformanceData performanceData;
 	
 	public abstract double predict(double[] features);

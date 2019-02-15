@@ -1,6 +1,10 @@
-package machineLearning;
+package machinelearning;
 
-public class Application {
+import java.io.Serializable;
+
+public class Application implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private int numberOfQuestions;
 	private int numberOfPages;
@@ -19,7 +23,7 @@ public class Application {
 
 	private void createOperationMode() {
 		throw new UnsupportedOperationException();
-		// TODO: Edit to create the proper operationMode -> operationMode =  new Classify();  		
+		// TODO: Edit to create the proper operationMode. Example:  operationMode =  new Classify();  		
 	}
 
     public OperationMode getOperationMode() {
@@ -31,7 +35,7 @@ public class Application {
 		this.inductor.setOperationMode(operationMode);
 	}
 	
-	public int setNumberOfQuestionForms() {
+	public int getNumberOfQuestionForms() {
 		return this.numberOfPages;
 	}
 	public void setNumberOfQuestionForms(int numberOfForms) {
