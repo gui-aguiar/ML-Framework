@@ -1,7 +1,10 @@
-package machineLearning;
+package machinelearning;
 
-public abstract class DataDAO {
+import java.io.Serializable;
 
+public abstract class DataDAO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	protected double[][] features;
 	protected double[] labels;
 

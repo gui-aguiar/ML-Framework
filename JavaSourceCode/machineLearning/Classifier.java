@@ -1,25 +1,27 @@
-package machineLearning;
+package machinelearning;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Classifier {
-
+public class Classifier implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Algorithm> algorithms;
 	private Algorithm currentAlgorithm;     
 	private DataDAO dataDAO;
 	private double[][] normalizedFeatures;
 	
 	public Classifier() {
-		algorithms = new  ArrayList<Algorithm>();
+		algorithms = new  ArrayList<>();
 		createDataDAO();
 	}
 
 	private void createDataDAO() {
-		throw new UnsupportedOperationException();
-		//dataDAO = new DataDAO;  // TODO: Edit to create the proper DataDAO
+		throw new UnsupportedOperationException(); 		// TODO: Edit to create the proper DataDAO 
 	}
 		
-	public ArrayList<Algorithm> getAlgorithms() {
+	public List<Algorithm> getAlgorithms() {
 		return algorithms;
 	}
 	

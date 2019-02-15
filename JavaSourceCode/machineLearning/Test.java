@@ -1,7 +1,8 @@
-package machineLearning;
+package machinelearning;
 
 public class Test extends OperationMode {
 
+	private static final long serialVersionUID = 1L;
 	@Override
 	public void initialize() {
 		classifier.load();
