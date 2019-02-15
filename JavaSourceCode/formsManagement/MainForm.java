@@ -1,4 +1,4 @@
-package formsManagement;
+package formsmanagement;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -10,35 +10,44 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextArea;
-import machineLearning.Application;
+
+import machinelearning.Application;
 
 public class MainForm extends JFrame{
 
-	Panel mainPanel;
-	Panel questionPanelsPane;
-	JTextArea intructions;
-	Label title;
+	private Panel mainPanel;
+	private Panel questionPanelsPane;
+	private JTextArea intructions;
+	private Label intructionsTitle;
+	private Button button;
 	
-	int numberOfQuestionForms;
-	int numberOfQuestions;
-	double[] dataToPredict;
+	private int numberOfQuestionForms;
+	private int numberOfQuestions;
+	private double[] dataToPredict;
 	
-	Application application;
+	private Application application;
+	
+	private MessageHandler formsManager;
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new MainForm();
 	}
 	
 	public MainForm () {
+		createFormsManager();
 		configureCloseAction();
 		defineDataInfo();
 		setInstrucionsPanelComponents();
 		setQuestionPanelsComponents();
-		checkNumberOfPages();
-		setFormInfo();	
+		createQuestionPanels();	
+		checkNumberOfPages();			
 		runApplication();		
+	}
+
+	private void createFormsManager() {
+		formsManager = new MessageHandler(this);		
 	}
 
 	private void configureCloseAction() {
@@ -57,7 +66,7 @@ public class MainForm extends JFrame{
 	}
 
 	private void setFormInfo() {
-		this.setTitle("Aplication");
+		this.setInstructionsTitle("Aplication");
 		this.setInstructions("Set your instrucions  here");
 	}
 
@@ -65,7 +74,15 @@ public class MainForm extends JFrame{
 		this.application = new Application(this.getNumberOfQuestions());		
 		this.application.setNumberOfQuestionForms(this.getNumberOfQuestionForms());
 	}
-   
+
+	public double[] getDataToPredict() {
+		return dataToPredict;
+	}
+
+	public void setDataToPredict(double[] dataToPredict) {
+		this.dataToPredict = dataToPredict;
+	}
+
 	public void setApplication(Application application) {
 		this.application = application;
 	}
@@ -92,36 +109,45 @@ public class MainForm extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
-		mainPanel = new Panel();
-		
+		createInstructionsPanelComponents();		
+		configureInstructionsPanelComponents();		
+		setFormInfo();
+	}
+
+	private void configureInstructionsPanelComponents() {
 		mainPanel.setBounds(10, 10, 680, 590);
 		this.getContentPane().add(mainPanel);
 		mainPanel.setLayout(null);
-		mainPanel.setVisible(true);
+		mainPanel.setVisible(true);		
 		
-		title = new Label();
-		title.setAlignment(Label.CENTER);
-		title.setFont(new Font("Arial", Font.BOLD, 22));
-		title.setBounds(182, 35, 251, 66);
-		mainPanel.add(title);
+		intructionsTitle.setAlignment(Label.CENTER);
+		intructionsTitle.setFont(new Font("Arial", Font.BOLD, 22));
+		intructionsTitle.setBounds(182, 35, 251, 66);
+		mainPanel.add(intructionsTitle);		
 		
-		intructions = new JTextArea();
 		intructions.setLineWrap(true);
 		intructions.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		intructions.setEditable(false);
 		intructions.setBounds(10, 153, 594, 206);
 		intructions.setOpaque(false);  
-	    mainPanel.add(intructions);
+	    mainPanel.add(intructions);		
 		
-		Button button = new Button("Iniciar");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				startTest();
 			}
 		});
+		
 		button.setBounds(273, 500, 70, 22);
 		mainPanel.add(button);
 		this.repaint();
+	}
+
+	private void createInstructionsPanelComponents() {
+		mainPanel = new Panel();
+		intructionsTitle = new Label();
+		intructions = new JTextArea();
+		button = new Button("Iniciar");
 	}
 	
 	private void setQuestionPanelsComponents() { // TODO: This can be edited
@@ -130,16 +156,18 @@ public class MainForm extends JFrame{
 		questionPanelsPane.setBounds(10, 10, 640, 590);
 		getContentPane().add(questionPanelsPane);
 		questionPanelsPane.setLayout(new CardLayout(0, 0));
-
-		addQuestionPanels();	
 	}	
 
-	private void addQuestionPanels() {
-	// TODO: Create all the question panels here
+	private void createQuestionPanels() {
+		for (int i = 0; i < this.numberOfQuestionForms; i++ ) {
+			QuestionPanel questionPanel = createQuestionPanel(i, i==0, i==(this.numberOfQuestionForms-1));
+			questionPanelsPane.add(questionPanel);
+			formsManager.addQuestionForm(questionPanel);
+		}
 	}
-	
+
 	private void checkNumberOfPages() {
-		if (this.numberOfQuestionForms != questionPanelsPane.getComponentCount()) {
+		if (this.numberOfQuestionForms != formsManager.getNumberOfForms()) {
 			JOptionPane.showMessageDialog(this, "The number of pages configured doesnt match the configured",
 				    "Atenção", JOptionPane.ERROR_MESSAGE);
 			throw new UnsupportedOperationException("The number of pages configured doesnt match the configured");
@@ -147,7 +175,7 @@ public class MainForm extends JFrame{
 	}
 	
 	protected void startTest() {
-		if (application.getOperationMode() instanceof  machineLearning.Learn ) {
+		if (application.getOperationMode() instanceof  machinelearning.Learn ) {
 			application.train();
 		} 
 
@@ -159,8 +187,8 @@ public class MainForm extends JFrame{
 		intructions.setText(text);		
 	}
 	
-	public void setTitle(String text) {
-		title.setText(text);		
+	public void setInstructionsTitle(String text) {
+		intructionsTitle.setText(text);		
 	}
 	
 	public void finish() {
@@ -169,7 +197,12 @@ public class MainForm extends JFrame{
 	}
 
 	private void setFinishMessage(double prediction) {
-		// TODO: Create the users feedback;
+		// TODO: Create the message report for the users;
+	}
+	
+	private QuestionPanel createQuestionPanel(int index, boolean isFirstPanel, boolean isLastPanel) {
+		// TODO createAndConfigure a QuestionPanel subclass
+		return null;
 	}
 		
 }

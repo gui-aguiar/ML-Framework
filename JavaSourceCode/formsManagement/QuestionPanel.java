@@ -1,28 +1,37 @@
-package formsManagement;
+package formsmanagement;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.Button;
 import java.awt.CardLayout;
 
 public abstract class QuestionPanel extends JPanel {
-			  
-	private static final long serialVersionUID = 1L;
-
-	public QuestionPanel(MainForm mainForm) {
-		this.mainForm = mainForm;
-	}
 	
-	CardLayout cardLayout;
-	boolean isFirstPanel;
-	boolean isLastPanel;
-	Button buttonPrevious;
-	Button buttonNext;
-	double[] data;
-	int index;
-	MainForm mainForm;
+	private static final long serialVersionUID = 1L;
+	
+	static final String PREVIOUS_STRING = "Previous";
+	static final String NEXT_STRING = "Next";
+	
+	private CardLayout cardLayout;
+	private JButton buttonPrevious;
+	private JButton buttonNext;
+	
+	private MessageHandler manager;
+	private int numberOfQuestions;
+	private boolean isFirstPanel;
+	private boolean isLastPanel;
+	private double[] data;
+	private int index;
+	
+	public QuestionPanel(MessageHandler formsManager, int index, int numberOfQuestions, boolean isFirstPanel, boolean isLastPanel) {
+		this.manager = formsManager;
+		this.index = index;
+		this.isFirstPanel = isFirstPanel;
+		this.isLastPanel = isLastPanel;
+		this.numberOfQuestions = numberOfQuestions;
+	}
 	
 	public int getIndex() {
 		return index;
@@ -30,6 +39,14 @@ public abstract class QuestionPanel extends JPanel {
 
 	public void setIndex(int index) {
 		this.index = index;
+	}
+	
+	public int getNumberOfQuestions() {
+		return numberOfQuestions;
+	}
+
+	public void setNumberOfQuestions(int numberOfQuestions) {
+		this.numberOfQuestions = numberOfQuestions;
 	}
 
 	public double[] getData() {
@@ -68,27 +85,27 @@ public abstract class QuestionPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 cardLayout = (CardLayout) (getParent().getLayout());
                 String cmd = e.getActionCommand();
-                if (cmd.equals("Previous")) {
+                if (cmd.equals(PREVIOUS_STRING)) {
                 	previousPage();
                 }
-                else if (cmd.equals("Next")) {
+                else if (cmd.equals(NEXT_STRING)) {
                 	nextPage();
                 }
             }
         }
         ControlButtonsActionListenter controlButtons = new ControlButtonsActionListenter();		
 		
-		buttonPrevious = new Button("Previous");
+		buttonPrevious = new JButton(PREVIOUS_STRING);
 		buttonPrevious.setBounds(10, 470, 70, 22);
 		buttonPrevious.addActionListener(controlButtons);
-		buttonPrevious.setActionCommand("Previous");
+		buttonPrevious.setActionCommand(PREVIOUS_STRING);
 		add(buttonPrevious);
 		buttonPrevious.setVisible(!isFirstPanel);
 		
-		buttonNext = new Button("Next");
+		buttonNext = new JButton(NEXT_STRING);
 		buttonNext.setBounds(560, 470, 70, 22);
 		buttonNext.addActionListener(controlButtons);
-		buttonNext.setActionCommand("Next");
+		buttonNext.setActionCommand(NEXT_STRING);
 		add(buttonNext);
 	}
 
@@ -105,10 +122,20 @@ public abstract class QuestionPanel extends JPanel {
 		    if (!this.isLastPanel) {
 		    	cardLayout.next(getParent());
 		    } else {
-		    	this.mainForm.finish(); 
+		    	manager.dataReady();
 		    }
 	    }	     
 	}
+	
+	private void collectData() {
+		collectFormData();
+		manager.collectData(this);  // event? how to do?
+	}
+	
+	protected abstract void collectFormData();
+
 	protected abstract boolean checkAnswerRules();
-	protected abstract void collectData();	
+	
+	
+	
 }
