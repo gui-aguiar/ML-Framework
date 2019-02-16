@@ -7,20 +7,28 @@ import java.util.List;
 public class Classifier implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private double[][] normalizedFeatures;
+	
 	private ArrayList<Algorithm> algorithms;
 	private Algorithm currentAlgorithm;     
 	private DataDAO dataDAO;
-	private double[][] normalizedFeatures;
-	
+	private DataNormalizer normalizer;	
+
 	public Classifier() {
 		algorithms = new  ArrayList<>();
 		createDataDAO();
+		createNormalizer();
 	}
 
 	private void createDataDAO() {
-		throw new UnsupportedOperationException(); 		// TODO: Edit to create the proper DataDAO 
+		throw new UnsupportedOperationException(); 	// TODO: Edit to create the proper DataDAO 
 	}
-		
+
+	private void createNormalizer() {
+		normalizer = new DataNormalizerDefault(); // TODO: Edit to create the proper DataNormalizer; 		
+	}		
+	
 	public List<Algorithm> getAlgorithms() {
 		return algorithms;
 	}
@@ -51,17 +59,13 @@ public class Classifier implements Serializable {
     
 	private void loadData(int featuresSize) {		
 		dataDAO.load();
-		this.normalizeData();
+		normalizedFeatures = normalizer.normalizeData(dataDAO.getFeatures());
 	}
 	
 	public void load() {
 		for(Algorithm algorithm: algorithms){
     		algorithm.read();
     	}	
-	}
-
-	public void normalizeData() {		
-		normalizedFeatures = dataDAO.getFeatures();
 	}
 
 	public double classify(double[] features) {

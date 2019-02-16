@@ -18,17 +18,17 @@ public abstract class QuestionPanel extends JPanel {
 	private JButton buttonPrevious;
 	private JButton buttonNext;
 	
-	private MessageHandler manager;
+	private MainForm mainForm;
 	private int numberOfQuestions;
 	private boolean isFirstPanel;
 	private boolean isLastPanel;
 	private double[] data;
 	private int index;
 	
-	public QuestionPanel(MessageHandler formsManager, int index, int numberOfQuestions, boolean isFirstPanel, boolean isLastPanel) {
-		this.manager = formsManager;
+	public QuestionPanel(MainForm mainForm, int index, int numberOfQuestions, boolean isFirstPanel, boolean isLastPanel) {
+		this.mainForm = mainForm;
 		this.index = index;
-		this.isFirstPanel = isFirstPanel;
+		setIsFirstPanel(isFirstPanel);
 		this.isLastPanel = isLastPanel;
 		this.numberOfQuestions = numberOfQuestions;
 	}
@@ -57,7 +57,7 @@ public abstract class QuestionPanel extends JPanel {
 		this.data = data;
 	}
 
-	public boolean isFirstPanel() {
+	public boolean getIsFirstPanel() {
 		return isFirstPanel;
 	}
 
@@ -66,7 +66,7 @@ public abstract class QuestionPanel extends JPanel {
 		buttonPrevious.setVisible(!isFirstPanel);
 	}
 
-	public boolean isLastPanel() {
+	public boolean getIsLastPanel() {
 		return isLastPanel;
 	}
 
@@ -122,14 +122,14 @@ public abstract class QuestionPanel extends JPanel {
 		    if (!this.isLastPanel) {
 		    	cardLayout.next(getParent());
 		    } else {
-		    	manager.dataReady();
+		    	mainForm.dataReady();
 		    }
 	    }	     
 	}
 	
 	private void collectData() {
 		collectFormData();
-		manager.collectData(this);  // event? how to do?
+		mainForm.collectData(this);
 	}
 	
 	protected abstract void collectFormData();

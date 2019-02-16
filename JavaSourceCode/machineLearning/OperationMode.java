@@ -15,14 +15,6 @@ public abstract class OperationMode implements Serializable {
 		this.classifier = new Classifier();
 	}
 	
-	public abstract void initialize();
-
-	public abstract double classify(double[] features);
-
-	public abstract double test();
-
-	public abstract boolean train(int featuresSize);
-
 	public Classifier getClassifier() {
 		return classifier;
 	}
@@ -34,5 +26,13 @@ public abstract class OperationMode implements Serializable {
 	public void close() {
 		classifier.close();
 	}
+
+	public abstract void initialize();
+
+	public abstract double classify(double[] features);
+
+	public abstract double test();
+
+	public abstract boolean train(int featuresSize);
 
 }
