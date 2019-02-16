@@ -12,7 +12,7 @@ public class Inductor implements Serializable {
 		this.featuresSize = feturesSize;
 	}
 
-	public OperationMode getModoOperacao() {
+	public OperationMode getOperationMode() {
 		return this.operationMode;
 	}
 

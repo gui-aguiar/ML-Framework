@@ -8,30 +8,26 @@ public class Application implements Serializable {
 
 	private int numberOfQuestions;
 	private int numberOfPages;
-	private OperationMode operationMode;
 
 	private Inductor inductor;
 
     public Application(int numberOfQuestions) {
     	this.numberOfQuestions = numberOfQuestions;
-    	inductor = new Inductor(getNumberOfQuestions());
-		createOperationMode();
-		inductor.setOperationMode(operationMode);
-		
+    	inductor = new Inductor(getNumberOfQuestions());		
+		inductor.setOperationMode(createOperationMode());		
     	inductor.run();
 	}
 
-	private void createOperationMode() {
+	private OperationMode createOperationMode() {
 		throw new UnsupportedOperationException();
 		// TODO: Edit to create the proper operationMode. Example:  operationMode =  new Classify();  		
 	}
 
     public OperationMode getOperationMode() {
-		return operationMode;
+		return inductor.getOperationMode();
 	}
 
 	public void setOperationMode(OperationMode operationMode) {
-		this.operationMode = operationMode; 
 		this.inductor.setOperationMode(operationMode);
 	}
 	
