@@ -49,7 +49,7 @@ public class Classifier implements Serializable {
 
     public boolean train(int featuresSize) {
     	boolean fitResult = true;
-    	this.loadData(featuresSize);
+    	loadData(featuresSize);
     	for(Algorithm algorithm: algorithms){
     		fitResult = algorithm.fit(normalizedFeatures, dataDAO.getLabels()) && fitResult;
     	}
@@ -58,7 +58,9 @@ public class Classifier implements Serializable {
 	}
     
 	private void loadData(int featuresSize) {		
-		dataDAO.load();
+		if (dataDAO.load()[0].length != featuresSize) {
+			throw new Error("Provided data doesn match with the appications configuratiosns.");
+		}
 		normalizedFeatures = normalizer.normalizeData(dataDAO.getFeatures());
 	}
 	

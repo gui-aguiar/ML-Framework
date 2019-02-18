@@ -7,7 +7,6 @@ public class Application implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int numberOfQuestions;
-	private int numberOfPages;
 
 	private Inductor inductor;
 
@@ -31,13 +30,6 @@ public class Application implements Serializable {
 		this.inductor.setOperationMode(operationMode);
 	}
 	
-	public int getNumberOfQuestionForms() {
-		return this.numberOfPages;
-	}
-	public void setNumberOfQuestionForms(int numberOfForms) {
-		this.numberOfPages = numberOfForms;		
-	}
-
 	public int getNumberOfQuestions() {
 		return this.numberOfQuestions;
 	}

@@ -1,12 +1,12 @@
 package machinelearning;
 
-public class Test extends OperationMode {
+public abstract class Test extends OperationMode {
 
 	private static final long serialVersionUID = 1L;
 	@Override
 	public void initialize() {
 		classifier.load();
-		this.test();		
+		test();		
 	}
 
 	@Override
@@ -14,13 +14,11 @@ public class Test extends OperationMode {
 		return -1;
 	}
 
-	public double test() {
-		return 0;
-	}
-
 	@Override
 	public boolean train(int featuresSize) {
 		return false;
 	}
+	
+	public abstract double test();
 
 }

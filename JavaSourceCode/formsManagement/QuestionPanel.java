@@ -30,7 +30,7 @@ public abstract class QuestionPanel extends JPanel {
 		this.index = index;
 		setIsFirstPanel(isFirstPanel);
 		this.isLastPanel = isLastPanel;
-		this.numberOfQuestions = numberOfQuestions;
+		this.setNumberOfQuestions(numberOfQuestions);
 	}
 	
 	public int getIndex() {
@@ -47,6 +47,7 @@ public abstract class QuestionPanel extends JPanel {
 
 	public void setNumberOfQuestions(int numberOfQuestions) {
 		this.numberOfQuestions = numberOfQuestions;
+		data = new double[numberOfQuestions];
 	}
 
 	public double[] getData() {

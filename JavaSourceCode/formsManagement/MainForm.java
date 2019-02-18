@@ -60,8 +60,8 @@ public class MainForm extends JFrame{
 	}
 		
 	private void defineDataInfo() {
-		this.setNumberOfQuestionForms(10);
-		this.setNumberOfQuestions(60);
+		this.setNumberOfQuestionForms(10);  // TODO: configure the proper number of question forms
+		this.setNumberOfQuestions(60);   // TODO: configure the proper number questions
 		dataToPredict = new double[this.getNumberOfQuestions()];
 	}
 	
@@ -103,7 +103,7 @@ public class MainForm extends JFrame{
 		
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				startTest();
+				startApplication();
 			}
 		});
 		
@@ -177,7 +177,7 @@ public class MainForm extends JFrame{
 		}
 	}
 	
-	private void startTest() {
+	private void startApplication() {
 		if (application.getOperationMode() instanceof  machinelearning.Learn ) {
 			application.train();
 		} 
