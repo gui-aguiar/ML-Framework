@@ -194,7 +194,7 @@ public class MainForm extends JFrame{
 		intructionsTitle.setText(text);		
 	}
 	
-	public void collectData(QuestionPanel questionPanel) {
+	public void collectQuestionFormData(QuestionPanel questionPanel) {
 		int startDataIndex = 0;
 		for (int i = 0; i < questionPanel.getIndex(); i++ ) {
 			startDataIndex += questionPanels.get(i).getNumberOfQuestions();

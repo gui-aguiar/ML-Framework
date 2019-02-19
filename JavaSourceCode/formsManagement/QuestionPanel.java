@@ -115,7 +115,9 @@ public abstract class QuestionPanel extends JPanel {
 	}
 	
 	protected void nextPage() {
-		if (!checkAnswerRules()) {
+		boolean rulesVerified = checkAnswerRules();
+		
+		if (!rulesVerified) {
 			JOptionPane.showMessageDialog(this, "The form was not filled properly", 
 				    "Atenção", JOptionPane.WARNING_MESSAGE);
 		} else{
@@ -130,7 +132,7 @@ public abstract class QuestionPanel extends JPanel {
 	
 	private void collectData() {
 		collectFormData();
-		mainForm.collectData(this);
+		mainForm.collectQuestionFormData(this);
 	}
 	
 	protected abstract void collectFormData();
