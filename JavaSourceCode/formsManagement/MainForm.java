@@ -47,7 +47,7 @@ public class MainForm extends JFrame{
 	}
 
 	private void createQuestionPanelsContainer() {
-		questionPanels = new HashMap<Integer, QuestionPanel>(); 
+		questionPanels = new HashMap<>(); 
 	}
 
 	private void configureCloseAction() {
