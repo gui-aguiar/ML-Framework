@@ -71,7 +71,7 @@ public class Classifier implements Serializable {
 	}
 
 	public double classify(double[] features) {
-	  return currentAlgorithm.predict(features);
+	  return currentAlgorithm.predict(normalizer.normalizeSample(features));
 	}
 	
 	public void close() {

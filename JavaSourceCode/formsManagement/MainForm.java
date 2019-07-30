@@ -39,7 +39,7 @@ public class MainForm extends JFrame{
 		createQuestionPanelsContainer();
 		configureCloseAction();
 		defineDataInfo();
-		setInstrucionsPanelComponents();
+		setInstructionsPanelComponents();
 		setQuestionPanelsComponents();
 		createQuestionPanels();	
 		checkNumberOfPages();			
@@ -65,7 +65,7 @@ public class MainForm extends JFrame{
 		dataToPredict = new double[this.getNumberOfQuestions()];
 	}
 	
-	private void setInstrucionsPanelComponents() {  
+	private void setInstructionsPanelComponents() {  
 		this.setVisible(true);
 		this.setBounds(100, 100, 680, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
